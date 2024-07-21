@@ -27,12 +27,20 @@ public class BookController {
                         @PathVariable  String author,
                         @PathVariable  String publisher,
                         @PathVariable  String type) {
-        mockBookService.addBook(id, isbn, title, author, publisher, type);
-        return "Book added  " + mockBookService.bookOnId(id).toString();
+        if(!mockBookService.bookOnIdChecker(id)) {
+            mockBookService.addBook(id, isbn, title, author, publisher, type);
+            return "Book added  " + mockBookService.bookOnId(id).toString();
+        }
+        return "On this id already is book" + mockBookService.bookOnId(id);
+
     }
     @GetMapping("/{id}")
     public String getBook(@PathVariable long id) {
+        if(mockBookService.bookOnIdChecker(id))
+        {
         return mockBookService.bookOnId(id);
+        }
+        return "Book about id " + id + " hasn't existe";
     }
     @PutMapping("/{id}/{isbn}/{title}/{author}/{publisher}/{type}")
     public String changeBookOnId(@PathVariable  long id,
@@ -41,16 +49,23 @@ public class BookController {
                           @PathVariable  String author,
                           @PathVariable  String publisher,
                           @PathVariable  String type) {
-        mockBookService.addBook(id, isbn, title, author, publisher, type);
-        return "Book canged  " + mockBookService.bookOnId(id).toString();
+        if(mockBookService.bookOnIdChecker(id)) {
+            mockBookService.addBook(id, isbn, title, author, publisher, type);
+            return "Book changed  " + mockBookService.bookOnId(id).toString();
+        }
+        return "Book about id " + id + " hasn't existe";
+
     }
 
     @DeleteMapping("/{id}")
     public String deleteBood(@PathVariable int id)
     {
-
-        mockBookService.deleteBookOnId(id);
-        return "Book about id   " + id + " has been deleted";
+        if(mockBookService.bookOnIdChecker(id))
+        {
+            mockBookService.deleteBookOnId(id);
+            return "Book about id   " + id + " has been deleted";
+        }
+            return "Book about id " + id + " hasn't existed";
     }
 
 

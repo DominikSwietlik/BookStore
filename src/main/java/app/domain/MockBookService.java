@@ -7,7 +7,7 @@ import java.util.List;
 @Service
 public class MockBookService {
     List<Book> books = new ArrayList<Book>();
-    long recordId = 1;
+
 
     public List<Book> returnBooks(){
 
@@ -17,8 +17,17 @@ public class MockBookService {
     public String bookOnId(long id){
         return books.get((int) id).toString();
     }
+    public boolean bookOnIdChecker(long id){
+        for (Book book : books) {
+            if (book.getId() == id) {
+                return true;
+            }
+        }
+        return false;
 
-    void changeBookOnId(int id,  String isbn,
+    }
+
+    public void changeBookOnId(int id,  String isbn,
     String title,
     String author,
     String publisher,
@@ -38,14 +47,14 @@ public class MockBookService {
                         String author,
                         String publisher,
                         String type){
-        Book book = new Book();
-        book.setId(id);
-        book.setIsbn(isbn);
-        book.setTitle(title);
-        book.setAuthor(author);
-        book.setPublisher(publisher);
-        book.setType(type);
-        books.add(book);
+            Book book = new Book();
+            book.setId(id);
+            book.setIsbn(isbn);
+            book.setTitle(title);
+            book.setAuthor(author);
+            book.setPublisher(publisher);
+            book.setType(type);
+            books.add(book);
 
     }
 }
