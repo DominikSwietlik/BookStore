@@ -8,6 +8,10 @@ public class Book {
     private String publisher;
     private String type;
 
+    public Book() {
+
+    }
+
     public Long getId() {
         return id;
     }
@@ -63,5 +67,10 @@ public class Book {
         this.author = author;
         this.publisher = publisher;
         this.type = type;
+    }
+    @Override
+    public String toString() {
+        return String.format("Book{id=%d, isbn='%s', title='%s', author='%s', publisher='%s', type='%s'}",
+                id, isbn, title, author, publisher, type);
     }
 }
